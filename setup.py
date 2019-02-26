@@ -53,7 +53,7 @@ setup(
         'rpi.gpio',
         'adafruit-blinka',
         'adafruit-circuitpython-motorkit',
-        'adafruit-circuitpython-max38156'
+        'adafruit-circuitpython-max31856'
     ],
     extras_require={
         'test': ['pytest', ],
