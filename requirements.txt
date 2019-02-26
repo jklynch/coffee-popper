@@ -1,0 +1,3 @@
+git+https://github.com/jklynch/Adafruit_CircuitPython_MAX31856.git
+
+-e .
