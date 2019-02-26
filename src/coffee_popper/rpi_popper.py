@@ -10,6 +10,7 @@ import adafruit_max31856
 
 class CoffeePopper:
     def __init__(self):
+        print('GPIO mode: {}'.format(GPIO.getmode()))
         GPIO.setmode(GPIO.BOARD)
         heater_pwm_pin = 12
         GPIO.setup(heater_pwm_pin, GPIO.OUT)
@@ -21,11 +22,8 @@ class CoffeePopper:
         self.fan = kit.motor1
 
         spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
-
         cs = digitalio.DigitalInOut(board.D5)
         cs.direction = digitalio.Direction.OUTPUT
-
-        # create a thermocouple object with the above
         self.thermocouple = adafruit_max31856.MAX31856(spi, cs)
 
     def cleanup(self):
