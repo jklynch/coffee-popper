@@ -48,7 +48,12 @@ setup(
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     install_requires=[
-        'matplotlib', 'pyzmq'
+        'matplotlib',
+        'pyzmq',
+        'rpi.gpio',
+        'adafruit-blinka',
+        'adafruit-circuitpython-motorkit',
+        'adafruit-max38156'
     ],
     extras_require={
         'test': ['pytest', ],
