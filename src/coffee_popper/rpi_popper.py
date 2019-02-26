@@ -11,8 +11,11 @@ import adafruit_max31856
 class CoffeePopper:
     def __init__(self):
         print('GPIO mode: {}'.format(GPIO.getmode()))
-        GPIO.setmode(GPIO.BOARD)
-        heater_pwm_pin = 12
+        # something is setting GPIO mode to BCM before we get here
+        # assume mode is BCM
+        ##GPIO.setmode(GPIO.BOARD)
+        ##heater_pwm_pin = 12
+        heater_pwm_pin = 18
         GPIO.setup(heater_pwm_pin, GPIO.OUT)
         heater_pwm_frequency = 100.0
         self.heater = GPIO.PWM(heater_pwm_pin, heater_pwm_frequency)
