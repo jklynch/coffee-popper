@@ -44,6 +44,6 @@ class CoffeePopper:
         self.fan.throttle = throttle
 
     def read_temperature(self):
-        print('thermocouple temperature: {:.5f}'.format(self.thermocouple.tempeature))
+        print('thermocouple temperature: {:.5f}'.format(self.thermocouple.temperature))
 
 
