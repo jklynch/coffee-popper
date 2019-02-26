@@ -26,7 +26,7 @@ setup(
     #long_description='%s\n%s' % (read('README.md'), re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.md'))),
     author='Joshua Lynch',
     author_email='joshua.kevin.lynch@gmail.com',
-    url='https://github.com/jklynch/coffee_popper',
+    url='https://github.com/jklynch/coffee-popper',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
@@ -53,7 +53,7 @@ setup(
         'rpi.gpio',
         'adafruit-blinka',
         'adafruit-circuitpython-motorkit',
-        'adafruit-max38156'
+        'adafruit-circuitpython-max38156'
     ],
     extras_require={
         'test': ['pytest', ],
