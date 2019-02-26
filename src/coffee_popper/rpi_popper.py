@@ -38,12 +38,16 @@ class CoffeePopper:
     def control_heater(self, duty_cycle):
         print('heater duty cycle: {:.5f}'.format(duty_cycle))
         self.heater.start(duty_cycle)
+        return duty_cycle
 
     def control_fan(self, throttle):
         print('fan throttle: {:.5f}'.format(throttle))
         self.fan.throttle = throttle
+        return self.fan.throttle
 
     def read_temperature(self):
-        print('thermocouple temperature: {:.5f}'.format(self.thermocouple.temperature))
+        temperature = self.thermocouple.temperature
+        print('thermocouple temperature: {:.5f}'.format(temperature))
+        return temperature
 
 
