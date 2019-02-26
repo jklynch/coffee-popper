@@ -31,13 +31,13 @@ def popper(testing):
     Set up hardware and start event loop.
     """
 
-    try:
-        if testing:
-            coffee_popper = TestPopper()
-        else:
-            import coffee_popper.rpi_popper as rpi
-            coffee_popper = rpi.CoffeePopper()
+    if testing:
+        coffee_popper = TestPopper()
+    else:
+        import coffee_popper.rpi_popper as rpi
+        coffee_popper = rpi.CoffeePopper()
 
+    try:
         context = zmq.Context()
         control_socket = context.socket(zmq.REP)
         control_socket.bind("tcp://*:5555")
