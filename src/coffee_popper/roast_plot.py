@@ -47,6 +47,7 @@ def roast_plot(roaster_ip):
             ax.plot(xs, ys)
 
             # Format plot
+            plt.ylim(0.0, 400.0)
             plt.xticks(rotation=45, ha='right')
             plt.subplots_adjust(bottom=0.30)
             plt.title('Coffee Popper Temperature')
