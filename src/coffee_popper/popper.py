@@ -72,17 +72,18 @@ def popper(testing):
                 json_messages = control_socket.recv_json()
                 print("Received request:\n{}".format(json_messages))
 
-                function_name = json_messages[0][0]
-                function_kwargs = json_messages[0][1]
-                message_handler = message_handlers[function_name]
-                response = message_handler(**function_kwargs)
+                for function_name, function_kwargs in json_messages:
+                    #function_name = json_message[0]
+                    #function_kwargs = json_message[1]
+                    message_handler = message_handlers[function_name]
+                    response = message_handler(**function_kwargs)
 
-                json_response = {
-                    function_name: response
-                }
+                    json_response = {
+                        function_name: response
+                    }
 
-                #  Send reply back to client
-                control_socket.send_json(json_response)
+                    #  Send reply back to client
+                    control_socket.send_json(json_response)
 
             else:
                 pass
