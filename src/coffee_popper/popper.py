@@ -73,6 +73,8 @@ def popper(testing):
                 print("Received request:\n{}".format(json_messages))
 
                 for function_name, function_kwargs in json_messages:
+                    print('\tfunction name: {}'.format(function_name))
+                    print('\tfuncation args: {}'.format(function_kwargs))
                     #function_name = json_message[0]
                     #function_kwargs = json_message[1]
                     message_handler = message_handlers[function_name]
