@@ -8,17 +8,27 @@ import zmq
 class TestPopper:
     def __init__(self):
         random.seed(1)
+        self.heater_duty_cycle = 0.0
+        self.fan_throttle = 0.0
 
     def cleanup(self):
         print('cleaning up')
 
     def control_heater(self, duty_cycle):
+        self.heater_duty_cycle = duty_cycle
         print('heater duty cycle: {:.5f}'.format(duty_cycle))
-        return duty_cycle
+        return self.heater_duty_cycle
+
+    def get_heater_duty_cycle(self):
+        return self.heater_duty_cycle
 
     def control_fan(self, throttle):
+        self.fan_throttle = throttle
         print('fan throttle: {:.5f}'.format(throttle))
-        return throttle
+        return self.fan_throttle
+
+    def get_fan_throttle(self):
+        return self.fan_throttle
 
     def read_temperature(self):
         temperature = random.random() * 100.0
@@ -82,7 +92,9 @@ def popper(testing):
                 status = {
                     'status': {
                         'time': time.time(),
-                        'temperature': coffee_popper.read_temperature()
+                        'temperature': coffee_popper.read_temperature(),
+                        'fan_throttle': coffee_popper.get_fan_throttle(),
+                        'heater_duty_cycle': coffee_popper.get_heater_duty_cycle()
                     }
                 }
                 print('sending a status message:\n{}'.format(status))

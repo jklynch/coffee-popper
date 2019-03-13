@@ -10,6 +10,8 @@ import adafruit_max31856
 
 class CoffeePopper:
     def __init__(self):
+        self.heater_duty_cycle = 0.0
+
         print('GPIO mode: {}'.format(GPIO.getmode()))
         # something is setting GPIO mode to BCM before we get here
         # assume mode is BCM
@@ -36,18 +38,23 @@ class CoffeePopper:
         self.fan.throttle = None
 
     def control_heater(self, duty_cycle):
-        print('heater duty cycle: {:.5f}'.format(duty_cycle))
-        self.heater.start(duty_cycle)
-        return duty_cycle
+        self.heater_duty_cycle = duty_cycle
+        print('heater duty cycle: {:.5f}'.format(self.heater_duty_cycle))
+        self.heater.start(self.heater_duty_cycle)
+        return self.heater_duty_cycle
+
+    def get_heater_duty_cycle(self):
+        return self.heater_duty_cycle
 
     def control_fan(self, throttle):
-        print('fan throttle: {:.5f}'.format(throttle))
         self.fan.throttle = throttle
+        print('fan throttle: {:.5f}'.format(self.fan.throttle))
+        return self.fan.throttle
+
+    def get_fan_throttle(self):
         return self.fan.throttle
 
     def read_temperature(self):
         temperature = self.thermocouple.temperature
         print('thermocouple temperature: {:.5f}'.format(temperature))
         return temperature
-
-
