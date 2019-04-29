@@ -8,7 +8,7 @@ import digitalio
 import adafruit_max31856
 
 
-class CoffeePopper:
+class PopperServer:
     def __init__(self):
         self.heater_duty_cycle = 0.0
 
