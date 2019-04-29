@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-from adafruit_motorkit import MotorKit
+#from adafruit_motorkit import MotorKit
 
 import board
 import busio
@@ -11,6 +11,7 @@ import adafruit_max31856
 class PopperServer:
     def __init__(self):
         self.heater_duty_cycle = 0.0
+        self.fan_duty_cycle = 0.0
 
         print('GPIO mode: {}'.format(GPIO.getmode()))
         # something is setting GPIO mode to BCM before we get here
@@ -21,10 +22,15 @@ class PopperServer:
         GPIO.setup(heater_pwm_pin, GPIO.OUT)
         heater_pwm_frequency = 100.0
         self.heater = GPIO.PWM(heater_pwm_pin, heater_pwm_frequency)
-        heater_pwm_duty_cycle = 25.0
+        #heater_pwm_duty_cycle = 25.0
 
-        kit = MotorKit()
-        self.fan = kit.motor1
+        fan_pwm_pin = 13
+        GPIO.setup(fan_pwm_pin, GPIO.OUT)
+        fan_pwm_frequency = 100.0
+        self.fan = GPIO.PWM(fan_pwm_pin, fan_pwm_frequency)
+
+        #kit = MotorKit()
+        #self.fan = kit.motor1
 
         spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
         cs = digitalio.DigitalInOut(board.D5)
@@ -33,9 +39,10 @@ class PopperServer:
 
     def cleanup(self):
         self.heater.stop()
+        self.fan.stop()
         GPIO.cleanup()
 
-        self.fan.throttle = None
+        #self.fan.throttle = None
 
     def control_heater(self, duty_cycle):
         self.heater_duty_cycle = duty_cycle
@@ -46,13 +53,17 @@ class PopperServer:
     def get_heater_duty_cycle(self):
         return self.heater_duty_cycle
 
-    def control_fan(self, throttle):
-        self.fan.throttle = throttle
-        print('fan throttle: {:.5f}'.format(self.fan.throttle))
-        return self.fan.throttle
+    def control_fan(self, duty_cycle):
+        self.fan_duty_cycle = duty_cycle
+        print('fan duty cycle: {:.5f}'.format(self.fan_duty_cycle))
+        self.fan.start(self.fan_duty_cycle)
+        return self.fan_duty_cycle
+        #self.fan.throttle = throttle
+        #print('fan throttle: {:.5f}'.format(self.fan.throttle))
+        #return self.fan.throttle
 
-    def get_fan_throttle(self):
-        return self.fan.throttle
+    def get_fan_duty_cycle(self):
+        return self.fan_duty_cycle
 
     def read_temperature(self):
         temperature = self.thermocouple.temperature

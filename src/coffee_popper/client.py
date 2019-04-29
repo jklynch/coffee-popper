@@ -43,9 +43,9 @@ class PopperClient:
         self.control_socket.send_json(message)
         json_msg = self.control_socket.recv_json()
 
-    def set_fan_throttle(self, throttle):
+    def set_fan_duty_cycle(self, duty_cycle):
         message = [
-            'fan', {'throttle': throttle}
+            'fan', {'duty_cycle': duty_cycle}
         ]
         self.control_socket.send_json(message)
         json_msg = self.control_socket.recv_json()

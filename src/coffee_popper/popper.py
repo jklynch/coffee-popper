@@ -9,7 +9,7 @@ class TestPopper:
     def __init__(self):
         random.seed(1)
         self.heater_duty_cycle = 0.0
-        self.fan_throttle = 0.0
+        self.fan_duty_cycle = 0.0
 
     def cleanup(self):
         print('cleaning up')
@@ -22,13 +22,13 @@ class TestPopper:
     def get_heater_duty_cycle(self):
         return self.heater_duty_cycle
 
-    def control_fan(self, throttle):
-        self.fan_throttle = throttle
-        print('fan throttle: {:.5f}'.format(throttle))
-        return self.fan_throttle
+    def control_fan(self, duty_cycle):
+        self.fan_duty_cycle = duty_cycle
+        print('fan duty cycle: {:.5f}'.format(duty_cycle))
+        return self.fan_duty_cycle
 
-    def get_fan_throttle(self):
-        return self.fan_throttle
+    def get_fan_duty_cycle(self):
+        return self.fan_duty_cycle
 
     def read_temperature(self):
         temperature = random.random() * 100.0
@@ -97,7 +97,7 @@ def popper(testing):
                     'status': {
                         'time': time.time(),
                         'temperature': coffee_popper.read_temperature(),
-                        'fan_throttle': coffee_popper.get_fan_throttle(),
+                        'fan_duty_cycle': coffee_popper.get_fan_duty_cycle(),
                         'heater_duty_cycle': coffee_popper.get_heater_duty_cycle()
                     }
                 }

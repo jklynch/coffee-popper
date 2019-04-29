@@ -80,7 +80,7 @@ class PopperSim:
         print('fan throttle: {:.5f}'.format(throttle))
         return self.fan_throttle
 
-    def get_fan_throttle(self):
+    def get_fan_duty_cycle(self):
         return self.fan_throttle
 
     def read_temperature(self):
@@ -104,7 +104,7 @@ class PopperSimClient:
             'status': {
                 'time': self.time,
                 'temperature': self.popper_sim.read_temperature(),
-                'fan_throttle': self.popper_sim.get_fan_throttle(),
+                'fan_duty_cycle': self.popper_sim.get_fan_duty_cycle(),
                 'heater_duty_cycle': self.popper_sim.get_heater_duty_cycle()
             }
         }
@@ -177,7 +177,7 @@ def popper_sim():
                     'status': {
                         'time': time.time(),
                         'temperature': coffee_popper.read_temperature(),
-                        'fan_throttle': coffee_popper.get_fan_throttle(),
+                        'fan_duty_cycle': coffee_popper.get_fan_duty_cycle(),
                         'heater_duty_cycle': coffee_popper.get_heater_duty_cycle()
                     }
                 }
